@@ -1,0 +1,80 @@
+require: rubocop-rails
+
+Rails:
+  Enabled: true
+
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'bin/*'
+    - 'config/**/*'
+    - 'ci/**'
+  NewCops: disable
+  TargetRailsVersion: 7.0.6
+  TargetRubyVersion: 3.2.2
+  CacheRootDirectory: tmp
+
+Layout/LineLength:
+  Enabled: true
+  Max: 120
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 30
+
+Metrics/BlockLength:
+  Max: 50
+
+Metrics/ClassLength:
+  Max: 200
+  Exclude:
+    - test/**/*
+
+Naming/VariableNumber:
+  EnforcedStyle: 'snake_case'
+  AllowedIdentifiers: [line1, line2, oauth2, week1, week2, week3, week4, day51, strict_encode64, decode64, base64, encode_base64]
+
+Style/Documentation:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/RedundantSelf:
+  Enabled: false
+
+Style/SymbolArray:
+  EnforcedStyle: percent
+
+Style/WordArray:
+  EnforcedStyle: percent
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Rails/DynamicFindBy:
+  Enabled: false
+
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+
+Rails/InverseOf:
+  Enabled: false
