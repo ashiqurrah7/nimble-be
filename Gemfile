@@ -38,7 +38,9 @@ gem 'rubocop'
 
 gem 'rubocop-rails'
 
-gem "byebug"
+gem 'byebug'
+
+gem 'nokogiri'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

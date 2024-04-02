@@ -17,12 +17,13 @@ class Api::V1::KeywordsController < ApplicationController
 
     CSV.foreach(temp_file, headers: true) do |row|
       keyword = row['keyword']
-      Keyword.create(keyword: keyword)
+      params = GoogleScraper.scrape(keyword)
+      Keyword.create(params)
     end
 
     temp_file.close
     temp_file.unlink
 
-    render json: { message: "Keywords uploaded successfully" }, status: 201
+    render json: { message: 'Keywords uploaded successfully' }, status: :created
   end
 end
