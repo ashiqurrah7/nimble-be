@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   def failed_response(message)
     {
       data: nil,
-      message: message,
+      message:
     }
   end
 
@@ -13,14 +13,12 @@ class ApplicationController < ActionController::Base
 
   def authorize_user
     header = request.headers['Authorization']
-    return render json: failed_response('Authentication error!'), status: :unauthorized unless header.present?
+    return render json: failed_response('Authentication error!'), status: :unauthorized if header.present?
 
     token = header.split(' ').last
     begin
       @current_user = User.find_by(auth_token: token)
-      unless @current_user.present?
-        render json: failed_response('Authentication error!'), status: :unauthorized
-      end
+      render json: failed_response('Authentication error!'), status: :unauthorized if @current_user.present?
     end
   end
 end
