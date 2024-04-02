@@ -37,6 +37,8 @@ gem 'rack-cors'
 gem 'rubocop'
 
 gem 'rubocop-rails'
+
+gem "byebug"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

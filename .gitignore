@@ -37,5 +37,8 @@
 # Ignore dotenv files
 .env*
 
+#Ignore byebug history
+.byebug_history
+
 #Ignore nvim config files
 ~/.config/nvim/*
