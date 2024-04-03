@@ -4,10 +4,28 @@ require 'tempfile'
 require 'csv'
 
 class Api::V1::KeywordsController < ApplicationController
-  skip_before_action :authorize_user, only: [:create]
+  def index
+    keywords = Keyword.all
+
+    render json: Panko::ArraySerializer.new(
+      keywords, each_serializer: KeywordSerializer
+    ).to_json, status: :ok
+  end
+
+  def show
+    keyword = Keyword.find_by_id(params[:id])
+    
+    if !keyword.blank?
+      render json: KeywordSerializer.new.serialize(
+        keyword
+      ).to_json, status: :ok
+    else
+      head :not_found
+    end
+  end
 
   def create
-    csv_file = params[:csv]
+    csv_file = keyword_params[:csv]
 
     temp_file = Tempfile.new(["uploaded_#{Time.zone.today.strftime('%b-%d-%Y')}", '.csv'])
     temp_file.binmode
@@ -25,5 +43,9 @@ class Api::V1::KeywordsController < ApplicationController
     temp_file.unlink
 
     render json: { message: 'Keywords uploaded successfully' }, status: :created
+  end
+
+  def keyword_params
+    params.permit(:csv)
   end
 end

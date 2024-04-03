@@ -41,6 +41,8 @@ gem 'rubocop-rails'
 gem 'byebug'
 
 gem 'nokogiri'
+
+gem 'panko_serializer'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
