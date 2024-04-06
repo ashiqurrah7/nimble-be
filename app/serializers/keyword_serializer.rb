@@ -1,3 +1,3 @@
 class KeywordSerializer < Panko::Serializer
-  attributes :keyword, :adwords, :links, :results
+  attributes :id, :keyword, :adwords, :links, :results, :page_html
 end

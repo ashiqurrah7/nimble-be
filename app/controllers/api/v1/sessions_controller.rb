@@ -7,7 +7,7 @@ class Api::V1::SessionsController < ApplicationController
 
   def create
     user = User.find_by(username: user_params[:username])
-    if user.present?
+    if user.blank?
       render json: { message: INVALID_USERNAME_OR_PASSWORD }, status: :unauthorized
     elsif user.authenticate(params[:password])
       render json: {
@@ -22,7 +22,7 @@ class Api::V1::SessionsController < ApplicationController
     end
   rescue StandardError => e
     Rails.logger.error("User Login API failed: #{e.message}")
-    render json: failed_response(e.message), status: :unprocessable_entity
+    render json: { message: e.message }, status: :unprocessable_entity
   end
 
   private

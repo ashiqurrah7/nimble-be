@@ -29,7 +29,7 @@ class GoogleScraper
   def self.keyword_params(keyword, doc)
     adwords = doc.css('.ads-ad').count
     links = doc.css('a').count
-    search_results = doc.at('div#result-stats').text.strip.split(' ')[1].split(',').join
+    search_results = doc.at('div#result-stats').text.strip.split(' ')[1]
     page_html = doc.to_html
 
     { keyword:,
