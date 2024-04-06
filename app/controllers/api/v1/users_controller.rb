@@ -11,7 +11,7 @@ class Api::V1::UsersController < ApplicationController
     }, status: :created
   rescue StandardError => e
     Rails.logger.error("Failed to create user: #{e.message}")
-    render json: failed_response(e.message), status: :unprocessable_entity
+    render json: { message: e.message }, status: :unprocessable_entity
   end
 
   private
