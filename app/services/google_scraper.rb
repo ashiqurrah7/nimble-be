@@ -24,8 +24,6 @@ class GoogleScraper
     keyword_params(keyword, doc)
   end
 
-  private
-
   def self.keyword_params(keyword, doc)
     adwords = doc.css('.ads-ad').count
     links = doc.css('a').count

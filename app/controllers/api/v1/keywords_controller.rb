@@ -14,8 +14,8 @@ class Api::V1::KeywordsController < ApplicationController
 
   def show
     keyword = Keyword.find_by_id(params[:id])
-    
-    if !keyword.blank?
+
+    if keyword.present?
       render json: KeywordSerializer.new.serialize(
         keyword
       ).to_json, status: :ok
@@ -24,6 +24,7 @@ class Api::V1::KeywordsController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def create
     csv_file = keyword_params[:csv]
 
@@ -43,7 +44,11 @@ class Api::V1::KeywordsController < ApplicationController
     temp_file.unlink
 
     render json: { message: 'Keywords uploaded successfully' }, status: :created
+  rescue StandardError => e
+    Rails.logger.error("User Login API failed: #{e.message}")
+    render json: { message: e.message }, status: :unprocessable_entity
   end
+  # rubocop:enable Metrics/AbcSize
 
   def keyword_params
     params.permit(:csv)

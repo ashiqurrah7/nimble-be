@@ -6,8 +6,7 @@ class Api::V1::UsersController < ApplicationController
   def create
     User.create!(user_params)
     render json: {
-      message: 'User registration successfull',
-      data: nil
+      message: 'User registration successfull'
     }, status: :created
   rescue StandardError => e
     Rails.logger.error("Failed to create user: #{e.message}")
