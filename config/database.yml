@@ -6,7 +6,7 @@
 #
 default: &default
   adapter: postgresql 
-  pool: <%= ENV['RAILS_MAX_THREADS'] { 6 } %>
+  pool: <%= ENV['RAILS_MAX_THREADS'] %>
   host: <%= ENV['DATABASE_HOST'] %>
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>

@@ -27,21 +27,21 @@ class Api::V1::KeywordsController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def create
     csv_file = keyword_params[:csv]
+    threads = []
 
-    temp_file = Tempfile.new(["uploaded_#{Time.zone.today.strftime('%b-%d-%Y')}", '.csv'])
-    temp_file.binmode
+    keywords_chunks = CSV.read(csv_file.path, headers: true).each_slice(10)
 
-    temp_file.write(csv_file.read)
-    temp_file.rewind
-
-    CSV.foreach(temp_file, headers: true) do |row|
-      keyword = row['keyword']
-      params = GoogleScraper.scrape(keyword)
-      Keyword.create(params)
+    keywords_chunks.each do |chunk|
+      threads << Thread.new do
+        chunk.each do |row|
+          keyword = row['keyword']
+          params = GoogleScraper.scrape(keyword)
+          Keyword.create(params)
+        end
+      end
     end
 
-    temp_file.close
-    temp_file.unlink
+    threads.each(&:join)
 
     render json: { message: 'Keywords uploaded successfully' }, status: :created
   rescue StandardError => e
