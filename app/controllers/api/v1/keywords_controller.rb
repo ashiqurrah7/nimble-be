@@ -45,7 +45,7 @@ class Api::V1::KeywordsController < ApplicationController
 
     render json: { message: 'Keywords uploaded successfully' }, status: :created
   rescue StandardError => e
-    Rails.logger.error("User Login API failed: #{e.message}")
+    Rails.logger.error("Keywords API failed to fetch results: #{e.message}")
     render json: { message: e.message }, status: :unprocessable_entity
   end
   # rubocop:enable Metrics/AbcSize
